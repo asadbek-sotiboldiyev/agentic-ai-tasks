@@ -1,0 +1,5 @@
+>user:explain php about 50 words
+>AI:PHP is a popular open-source scripting language for server-side web development. Embedded in HTML, it runs on the server to generate dynamic web content, interact with databases, and manage sessions. The server sends the resulting HTML/CSS/JS to the browser. It powers countless websites and web applications.
+>>user:do you know, what i asked before ?
+>>AI:Yes, I do! You asked me to explain PHP in about 50 words, and I provided this:
+"PHP is a popular open-source scripting language for server-side web development. Embedded in HTML, it runs on the server to generate dynamic web content, interact with databases, and manage sessions. The server sends the resulting HTML/CSS/JS to the browser. It powers countless websites and web applications."
