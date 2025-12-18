@@ -3,8 +3,10 @@ load_dotenv('.env')
 import requests
 from google.genai import Client
 from google.genai import types
+import os
 
-client = Client(api_key="AIzaSyC3Q7YR5bembEQoQX_E_21sqif8Wv5616s")
+KEY = os.getenv("API_KEY")
+client = Client(api_key=KEY)
 
 
 # mul_fn_dec = {
