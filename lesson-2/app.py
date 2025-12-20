@@ -1,15 +1,18 @@
 import sys
+import os
 from getpass import getpass
 from dotenv import load_dotenv
 
 from db import DB
 from agent import Agent
+from pretty_print import *
 
 load_dotenv('.env')
 
 class Application:
     def __init__(self):
         self.db = DB()
+        self.agent = None
         self.commands = {
             0: self.show_menu,
             1: self.register,
@@ -45,13 +48,21 @@ class Application:
         print("Registered")
     
     def select_chat(self):
+        if self.agent is None:
+            self.login()
+            return
         chats = self.agent.get_chats()
-        print(chats)
+        print_chats_list(chats)
         while True:
             chat_id = input("Choose chat_id or create [new]: ")
             if chat_id == '0':
                 return
-            if chats.get(chat_id, False):
+            elif chat_id == 'new':
+                # new chat
+                new_chat_id = self.db.create_chat(user_id=self.agent.user_id)
+                self.chat_id = new_chat_id
+                break
+            if chats.get(int(chat_id), False):
                 self.chat_id = chat_id
                 break
             else:
@@ -63,16 +74,24 @@ class Application:
         password = getpass("Password: ")
         user_id = self.db.login(username=username, password=password)
 
-        agent = Agent(user_id=user_id)
-        self.agent = agent
-        self.select_chat()
-        while True:
-            user_message = input(f"{username}: ")
-            if user_message.strip().lower() == "/bye":
-                break
-
-            ai_message = agent.ask(user_message)
-            print(f"Agent: {ai_message}")
+        os.system('cls')
+        if user_id != 0:
+            agent = Agent(user_id=user_id)
+            self.agent = agent
+            self.select_chat()
+            while True:
+                user_message = print_input()
+                delete_last_lines(2)
+                if user_message.strip().lower() == "/bye":
+                    os.system('cls')
+                    break
+                print_user(user_message)
+                print_model_thinking()
+                ai_message = agent.ask(user_message)
+                delete_last_lines(3)
+                print_model(ai_message)
+        else:
+            return
 
 
 

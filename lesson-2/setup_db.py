@@ -1,22 +1,30 @@
 import sqlite3
+from db import DB
 
-con = sqlite3.connect("db.sqlite3")
+database = DB()
+
+# con = sqlite3.connect("db.sqlite3")
+con = database.con
 cur = con.cursor()
 
 
 create_table_script = """
 create table users(
-    id integer primary key,
-    username text,
-    password text
+    id int IDENTITY,
+    name nvarchar(255),
+    username nvarchar(255),
+    password NVARCHAR(255)
 );
-
-create table history(
-    id integer primary key,
+create table chats(
+    id int IDENTITY,
     user_id int,
-    user_message_id int,
-    message text,
-    role text -- user, model
+    name nvarchar(255),
+);
+create table messages(
+    id int IDENTITY,
+    chat_id int,
+    role nvarchar(10),
+    text NVARCHAR(max)
 );
 """
 

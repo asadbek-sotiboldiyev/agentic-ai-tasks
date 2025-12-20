@@ -15,8 +15,6 @@ class Agent:
         self.chats = self.get_chats()
         self.current_chat = None
         self.context_size = 5
-        # history = self.db.load_history(user_id=user_id)
-        # self.chat = self.client.chats.create(model=MODEL, history=history)
 
     def ask(self, message):
         ai_message = self.chat.send_message(message).text
@@ -28,7 +26,8 @@ class Agent:
         return self.db.load_chats(user_id=self.user_id)
     
     def change_chat(self, chat_id):
+        os.system('cls')
+        print('Chat changed to ', chat_id)
         history = self.db.load_history(chat_id=chat_id, context_size=self.context_size)
         self.chat = self.client.chats.create(model=MODEL, history=history)
         self.current_chat = chat_id
-        print('Chat changed')
