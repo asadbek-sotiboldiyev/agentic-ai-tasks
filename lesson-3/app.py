@@ -1,13 +1,21 @@
-import sys
 import os
+import sys
 from getpass import getpass
+
 from dotenv import load_dotenv
 
-from db import DB
 from agent import Agent
-from pretty_print import *
+from db import DB
+from pretty_print import (
+    print_chats_list,
+    print_input,
+    print_model,
+    print_model_thinking,
+    print_user,
+)
 
-load_dotenv('.env')
+load_dotenv(".env")
+
 
 class Application:
     def __init__(self):
@@ -18,7 +26,7 @@ class Application:
             1: self.register,
             2: self.login,
             3: self.select_chat,
-            4: sys.exit
+            4: sys.exit,
         }
         self.chat_id = 0
         self.menu = """Menu:
@@ -32,7 +40,7 @@ class Application:
     def show_menu(self):
         print(self.menu)
 
-    def register(self, username = None):
+    def register(self, username=None):
         if username:
             print("Username:", username)
         else:
@@ -46,7 +54,7 @@ class Application:
 
         self.db.register(username=username, password=password1)
         print("Registered")
-    
+
     def select_chat(self):
         if self.agent is None:
             self.login()
@@ -55,9 +63,9 @@ class Application:
         print_chats_list(chats)
         while True:
             chat_id = input("Choose chat_id or create [new]: ")
-            if chat_id == '0':
+            if chat_id == "0":
                 return
-            elif chat_id == 'new':
+            elif chat_id == "new":
                 # new chat
                 new_chat_id = self.db.create_chat(user_id=self.agent.user_id)
                 self.chat_id = new_chat_id
@@ -74,7 +82,7 @@ class Application:
         password = getpass("Password: ")
         user_id = self.db.login(username=username, password=password)
 
-        os.system('cls')
+        os.system("cls")
         if user_id != 0:
             agent = Agent(user_id=user_id)
             self.agent = agent
@@ -83,7 +91,7 @@ class Application:
                 user_message = print_input()
                 delete_last_lines(2)
                 if user_message.strip().lower() == "/bye":
-                    os.system('cls')
+                    os.system("cls")
                     break
                 print_user(user_message)
                 print_model_thinking()
@@ -92,8 +100,6 @@ class Application:
                 print_model(ai_message)
         else:
             return
-
-
 
     def run(self):
         self.show_menu()
