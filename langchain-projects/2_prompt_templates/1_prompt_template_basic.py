@@ -1,6 +1,7 @@
 # Prompt Template Docs:
 #   https://python.langchain.com/v0.2/docs/concepts/#prompt-templateshttps://python.langchain.com/v0.2/docs/concepts/#prompt-templates
 
+
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage
 
@@ -22,7 +23,7 @@ from langchain_core.messages import HumanMessage
 # print(prompt)
 
 
-PART 3: Prompt with System and Human Messages (Using Tuples)
+# PART 3: Prompt with System and Human Messages (Using Tuples)
 messages = [
     ("system", "You are a comedian who tells jokes about {topic}."),
     ("human", "Tell me {joke_count} jokes."),
@@ -31,6 +32,7 @@ prompt_template = ChatPromptTemplate.from_messages(messages)
 prompt = prompt_template.invoke({"topic": "lawyers", "joke_count": 3})
 print("\n----- Prompt with System and Human Messages (Tuple) -----\n")
 print(prompt)
+
 
 # # Extra Informoation about Part 3.
 # # This does work:
