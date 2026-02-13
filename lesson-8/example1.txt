@@ -1,0 +1,4 @@
+Bu platforma foydalanuvchilarga moliyaviy xarajatlarini nazorat qilishga yordam beradi.
+Foydalanuvchi daromad va chiqimlarni kiritishi mumkin.
+Tizim kunlik va oylik hisobotlarni avtomatik tarzda shakllantiradi.
+Ma'lumotlar xavfsiz saqlanadi va foydalanuvchi xohishiga ko‘ra eksport qilinadi.
