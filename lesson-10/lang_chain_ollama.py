@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 from termcolor import colored
 
 model = ChatOpenAI(
-    model="llama3.2:latest", api_key="key", base_url="http://localhost:11434/v1"
+    model="qwen3:8b", api_key="key", base_url="http://localhost:11434/v1"
 )
 history = [SystemMessage(content="You are a helpful assistant.")]
 while True:
