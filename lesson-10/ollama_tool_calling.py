@@ -1,7 +1,8 @@
-# from langchain.agents import create_agent
 import json
+import os
 from typing import Any, List
 
+from dotenv import load_dotenv
 from langchain.tools import tool
 from langchain_core.messages import (
     AIMessage,
@@ -11,7 +12,10 @@ from langchain_core.messages import (
     ToolMessage,
 )
 from langchain_core.messages.tool import tool_call
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_ollama import ChatOllama
+
+load_dotenv()
 
 
 class ToolCallCLass:
@@ -19,7 +23,11 @@ class ToolCallCLass:
         self.data = data
 
 
-model = ChatOllama(model="qwen3:8b", base_url="http://localhost:11434")
+model = ChatGoogleGenerativeAI(model=str(os.getenv("GEMINI_MODEL_NAME")))
+
+# model = ChatOllama(
+#     model=str(os.getenv("OLLAMA_MODEL")), base_url="http://localhost:11434"
+# )
 
 data = {
     "john": "Doe",
@@ -92,12 +100,14 @@ while len(actions) > 0:
             messages.append(ToolMessage(content=tool_result, tool_call_id=uid))
 
     print("** Requesting Agent:", messages)
+    print("Thinking...")
     ai_response = model.invoke(messages)
     if len(ai_response.tool_calls) > 0:
         actions.append(
             [ToolCallCLass(tool_for_call) for tool_for_call in ai_response.tool_calls]
         )
     elif isinstance(ai_response, AIMessage):
+        print(ai_response)
         print("> Agent:", ai_response.content)
-    print(actions)
+    # print(actions)
 print("-- Program finished")
