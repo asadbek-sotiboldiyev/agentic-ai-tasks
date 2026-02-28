@@ -24,7 +24,7 @@ parser = PydanticOutputParser(pydantic_object=Tanks)
 user_input = "Hello, Im {name}. i play World of Tanks blitz. i have tier-6 tank -  KV-2. this is Soviet Union tank. My favorite tank is SU-100. SU-100 is Sovet Union tier-5 tank"
 chat_prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are data extrctor. extract datas from plain text and return only list of JSON based on parser instructions. fields: name, country, tier"),
+        ("system", "You are data extrctor. extract datas from plain text and return only list of JSON based on parser instructions. fields: name, country, tier. wrap list with list_of_tanks"),
         ("human", user_input),
     ]
 ).partial(format_instructions=parser.get_format_instructions())
