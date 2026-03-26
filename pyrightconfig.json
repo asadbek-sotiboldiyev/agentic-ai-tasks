@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "LSP": {
+      "LSP-pyright": {
+        "settings": {
+          // "python.pythonPath": "C:\\Users\\acer\\AppData\\Local\\Programs\\Python\\Python313\\python.exe"
+          // On Windows it might look like: "C:\\Users\\username\\venv\\Scripts\\python.exe"
+        }
+      }
+    }
+  }
+}
